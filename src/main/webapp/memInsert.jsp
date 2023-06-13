@@ -90,4 +90,7 @@ input{
 <jsp:include page="./include/footer.jsp"></jsp:include>
 
 </body>
+<%
+DBConnect.getClose(con, pstmt, rs);
+%>
 </html>

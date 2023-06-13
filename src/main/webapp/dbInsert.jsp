@@ -28,6 +28,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:forward page="index.jsp"/>
+
 
 </body>
+<%
+DBConnect.getClose(con, pstmt);
+%>
 </html>
