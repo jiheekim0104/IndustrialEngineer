@@ -45,7 +45,7 @@ input{
 
 <section class="section">
 	<h2>홈쇼핑 회원 등록</h2>
-	<form action="/HRD_t123/dbInsert.jsp" method="post" name="mInform" onsubmit="return inCheck()">
+	<form action="/HRD_t123/dbInsert.jsp" method="post" name="mInform" onsubmit="return inCheck('insert')">
 		<table>
 			<tr>
 				<td class="itemArea">회원번호(자동완성)</td>

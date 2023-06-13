@@ -1,5 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import ="java.util.*" %>
+<%@ page import ="java.sql.*" %>
+<%@ page import ="java.text.*" %>
+<%@ page import ="DBPKG.*" %>
+<%
+	request.setCharacterEncoding("utf-8");
+	
+	String sql = "update member_tbl_02 set custname=?,phone=?,address=?, joindate=?, grade=?, city=? where custno="+ Integer.parseInt(request.getParameter("custno"));
+	Connection con = DBConnect.getConnection();
+	PreparedStatement pstmt = con.prepareStatement(sql);
+	
+	pstmt.setString(1, request.getParameter("custname"));
+	pstmt.setString(2, request.getParameter("phone"));
+	pstmt.setString(3, request.getParameter("address"));
+	pstmt.setString(4, request.getParameter("joindate"));
+	pstmt.setString(5, request.getParameter("grade"));
+	pstmt.setString(6, request.getParameter("city")); 
+	
+	pstmt.executeUpdate();
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +27,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:forward page="listSelectUpdate.jsp"/>
+
 
 </body>
+<%
+DBConnect.getClose(con, pstmt);
+%>
 </html>

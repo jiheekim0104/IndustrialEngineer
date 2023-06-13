@@ -12,12 +12,12 @@
 	PreparedStatement pstmt = con.prepareStatement(sql);
 	
 	pstmt.setInt(1, Integer.parseInt(request.getParameter("custno")));
-	pstmt.setString(2, request.getParameter("CUSTNAME"));
-	pstmt.setString(3, request.getParameter("PHONE"));
-	pstmt.setString(4, request.getParameter("ADDRESS"));
-	pstmt.setString(5, request.getParameter("JOINDATE"));
-	pstmt.setString(6, request.getParameter("GRADE"));
-	pstmt.setString(7, request.getParameter("CITY"));
+	pstmt.setString(2, request.getParameter("custname"));
+	pstmt.setString(3, request.getParameter("phone"));
+	pstmt.setString(4, request.getParameter("address"));
+	pstmt.setString(5, request.getParameter("joindate"));
+	pstmt.setString(6, request.getParameter("grade"));
+	pstmt.setString(7, request.getParameter("city"));
 	
 	pstmt.executeUpdate();
 %>    

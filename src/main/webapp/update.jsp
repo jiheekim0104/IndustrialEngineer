@@ -3,6 +3,7 @@
 <%@ page import ="java.util.*" %>
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.text.*" %>
+<%@ page import ="DBPKG.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,54 +25,6 @@ input{
 }
 </style> 
 <script>
-	function inCheck(){
-		let h=document.mInform;
- 		if(!h.custno.value){
-			alert("회원번호가 입력되지 않았습니다.");
-			h.custno.focus();
-			return false;
-		} 
-		
-		if(!h.custname.value){
-			alert("회원성명이 입력되지 않았습니다.");
-			h.custname.focus();
-			return false;
-		}
-		
-		if(!h.phone.value){
-			alert("회원전화가 입력되지 않았습니다.");
-			h.phone.focus();
-			return false;
-		}
-	
-		if(!h.address.value){
-			alert("회원주소가 입력되지 않았습니다.");
-			h.address.focus();
-			return false;
-		}
-		
-		if(!h.joindate.value){
-			alert("가입일자가 입력되지 않았습니다.");
-			h.joindate.focus();
-			return false;
-		}
-		
-		if(!h.grade.value){
-			alert("고객등급이 입력되지 않았습니다.");
-			h.grade.focus();
-			return false;
-		}
-		
-		if(!h.city.value){
-			alert("도시코드가 입력되지 않았습니다.");
-			h.city.focus();
-			return false;
-		}
-		
-		alert("회원정보수정이 완료 되었습니다.")
-		return true;
-	}
-	
 	function search(){
 		window.loction.href="/HRD_t123/listSelectUpdate.jsp";
 	}
@@ -80,38 +33,45 @@ input{
 <body>
 
 <jsp:include page="./include/header.jsp"></jsp:include>
-
+<%
+	String sql = "select custno,custname,phone,address,to_char(joindate,'yyyy-MM-dd')joindate,decode(grade,'A','VIP','B','일반','C','직원')grade,city from member_tbl_02"
+					+" where custno=" + request.getParameter("custno");
+	Connection con = DBConnect.getConnection();
+	PreparedStatement pstmt = con.prepareStatement(sql);
+	ResultSet rs = pstmt.executeQuery();
+	rs.next();
+%>
 <section class="section">
 	<h2>홈쇼핑 회원 정보 수정</h2>
-	<form action="/HRD_t123/dbUpdate.jsp" method="post" name="mInform" onsubmit="return inCheck()">
+	<form action="/HRD_t123/dbUpdate.jsp" method="post" name="mInform" onsubmit="return inCheck('update')">
 		<table>
 			<tr>
 				<td class="itemArea">회원번호(자동완성)</td>
-				<td class="inputArea"><input type="text" name="custno"></td>
+				<td class="inputArea"><input type="text" name="custno" readonly="readonly" value="<%=rs.getString("custno") %>"></td>
 			</tr>
 			<tr>
 				<td class="itemArea">회원성명</td>
-				<td><input type="text" name="custname"></td>
+				<td><input type="text" name="custname" value="<%=rs.getString("custname") %>"></td>
 			</tr>	
 			<tr>
 				<td class="itemArea">회원전화</td>
-				<td><input type="text" name="phone"></td>
+				<td><input type="text" name="phone" value="<%=rs.getString("phone") %>"></td>
 			</tr>	
 			<tr>
 				<td class="itemArea">회원주소</td>
-				<td><input type="text" name="address"></td>
+				<td><input type="text" name="address" value="<%=rs.getString("address") %>"></td>
 			</tr>	
 			<tr>
 				<td class="itemArea">가입일자</td>
-				<td><input type="text" name="joindate"></td>
+				<td><input type="text" name="joindate" value="<%=rs.getString("joindate") %>"></td>
 			</tr>	
 			<tr>
 				<td class="itemArea">고객등급(A:VIP,B:일반,C:직원)</td>
-				<td><input type="text" name="grade"></td>
+				<td><input type="text" name="grade" value="<%=rs.getString("grade") %>"></td>
 			</tr>	
 			<tr>
 				<td class="itemArea">도시코드</td>
-				<td><input type="text" name="city"></td>
+				<td><input type="text" name="city" value="<%=rs.getString("city") %>"></td>
 			</tr>	
 			<tr>
 				<td colspan ="2" class="itemArea">

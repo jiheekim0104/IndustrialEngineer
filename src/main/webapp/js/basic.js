@@ -1,4 +1,4 @@
-function inCheck(){
+function inCheck(select){
 		let h=document.mInform;
  		if(h.custno.value==""){
 			alert("회원번호가 입력되지 않았습니다.");
@@ -42,6 +42,13 @@ function inCheck(){
 			return false;
 		}
 		
-		alert("회원등록이 완료되었습니다.")
+		if(select=="insert"){
+			alert("회원등록이 완료되었습니다.");
+		} if(select=="update"){
+			alert("정보가 수정 되었습니다.");
+		} else {
+			alert("정상적으로 처리되지않았습니다.")
+		}
+		
 		return true;
 	}
